@@ -8,11 +8,39 @@ module.exports = {
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
-  plugins: ["react-refresh"],
+  plugins: ["react-refresh", "import", "unused-imports"],
   rules: {
     "react-refresh/only-export-components": [
       "warn",
       { allowConstantExport: true },
+    ],
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "import/order": [
+      "warn",
+      {
+        groups: [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type",
+        ],
+        "newlines-between": "always",
+        pathGroupsExcludedImportTypes: ["builtin"],
+        alphabetize: { order: "asc", caseInsensitive: true },
+        pathGroups: [
+          { pattern: "src/types/**", group: "internal", position: "before" },
+          {
+            pattern: "src/repositories/**",
+            group: "internal",
+            position: "before",
+          },
+        ],
+      },
     ],
   },
 };
