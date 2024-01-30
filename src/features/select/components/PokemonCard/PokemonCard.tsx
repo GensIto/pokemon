@@ -2,7 +2,7 @@ import { memo } from "react";
 import useSWR from "swr";
 
 import { fetcher } from "../../../../functions";
-import { CounterProvider } from "../../../../store/useCheckCount";
+import { CheckboxCounterProvider } from "../../../../store/useCheckboxCounter";
 import { Pokemon } from "../../../../types";
 import { JapaneseName } from "../JapaneseName/JapaneseName";
 import { MoveTable } from "../MoveTable";
@@ -15,7 +15,7 @@ export const PokemonCard: React.FC<{ apiURL: string }> = memo(({ apiURL }) => {
   if (!data) return <div>Loading...</div>;
 
   return (
-    <CounterProvider>
+    <CheckboxCounterProvider>
       <div className='card  w-[28rem] bg-base-100 shadow-xl'>
         <div className='card-body items-center text-center'>
           <h2 className='card-title'>
@@ -43,6 +43,6 @@ export const PokemonCard: React.FC<{ apiURL: string }> = memo(({ apiURL }) => {
           </div>
         </div>
       </div>
-    </CounterProvider>
+    </CheckboxCounterProvider>
   );
 });

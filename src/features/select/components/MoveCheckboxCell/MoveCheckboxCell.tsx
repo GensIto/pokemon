@@ -2,13 +2,13 @@ import { useRef } from "react";
 import useSWR from "swr";
 
 import { fetcher } from "../../../../functions";
-import { useCounterStore } from "../../../../store/useCheckCount";
+import { useCheckboxCounterStore } from "../../../../store/useCheckboxCounter";
 import { Move } from "../../../../types";
 
 export const MoveCheckboxCell: React.FC<{
   url: string;
 }> = ({ url }) => {
-  const { count, increase, decrease } = useCounterStore();
+  const { count, increase, decrease } = useCheckboxCounterStore();
   const { data, error } = useSWR<Move>(url, fetcher);
 
   const ref = useRef<HTMLInputElement>(null);
