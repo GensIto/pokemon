@@ -1,10 +1,8 @@
-import { getImageURL } from "./functions";
-
 export const PokemonImage: React.FC<{
-  sprites: { [key: string]: string | null };
+  frontUrl: string | null;
+  backUrl: string | null;
   alt: string;
-}> = ({ sprites, alt }) => {
-  const { frontUrl, backUrl } = getImageURL(sprites);
+}> = ({ frontUrl, backUrl, alt }) => {
   return (
     <>
       {frontUrl && <img src={frontUrl} alt={`${alt} front`} />}
