@@ -40,8 +40,7 @@ export const CounterProvider: React.FC<{ children: ReactNode }> = ({
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const useCounterStore = (): CounterState & {
+export const UseCounterStore = (): CounterState & {
   increase: () => void;
   decrease: () => void;
 } => {

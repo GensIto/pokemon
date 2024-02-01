@@ -7,14 +7,9 @@ type TableColumn<Entry> = {
 type TableProps<Entry> = {
   items: Entry[];
   renderColumns: TableColumn<Entry>[];
-  onClick?: () => void;
 };
 
-export const Table = <Entry,>({
-  items,
-  renderColumns,
-  onClick,
-}: TableProps<Entry>) => {
+export const Table = <Entry,>({ items, renderColumns }: TableProps<Entry>) => {
   return (
     <table>
       <thead className='sticky top-0 z-10 bg-gray-light'>
@@ -26,7 +21,7 @@ export const Table = <Entry,>({
       </thead>
       <tbody>
         {items.map((item, i) => (
-          <tr onClick={onClick} key={i}>
+          <tr key={i}>
             {renderColumns.map(({ Cell }, ci) => (
               <td key={ci}>
                 <Cell item={item} />

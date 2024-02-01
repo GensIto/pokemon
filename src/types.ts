@@ -51,6 +51,7 @@ export type Pokemon = {
 };
 
 export type Move = {
+  id: number;
   accuracy: number;
   effect_chance: number | null;
   flavor_text_entries: Array<{

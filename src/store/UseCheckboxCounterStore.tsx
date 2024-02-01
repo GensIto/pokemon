@@ -36,11 +36,10 @@ export const CheckboxCounterProvider = ({
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const useCheckboxCounterStore = (): CheckboxCounterState => {
+export const UseCheckboxCounterStore = (): CheckboxCounterState => {
   const store = useContext(CheckboxCounterContext);
   if (store === null) {
-    throw new Error("no provider");
+    throw new Error("no CheckboxCounterProvider");
   }
   return useStore(store);
 };
