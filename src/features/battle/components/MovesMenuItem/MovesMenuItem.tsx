@@ -5,10 +5,13 @@ import { Move } from "../../../../types";
 export const MovesMenuItem: React.FC<{
   move: Move;
   name: string | undefined;
-}> = ({ move, name }) => {
+  pokemonHp: number | undefined;
+  setPokemonHp: (value: number) => void;
+}> = ({ move, name, pokemonHp, setPokemonHp }) => {
   const [moveSelected, setMoveSelected] = useState(move!.pp);
   const handleClick = () => {
     if (0 < moveSelected) setMoveSelected(moveSelected - 1);
+    pokemonHp && setPokemonHp(pokemonHp - move.power);
   };
   return (
     <li
