@@ -1,49 +1,17 @@
 import { UsePokemonStore } from "../../store/UsePokemonStore";
 
-export const Battle = () => {
-  return (
-    <div className='flex flex-col justify-center items-center w-full h-screen'>
-      <div className='grid h-20 card bg-base-300 rounded-box place-items-center'>
-        バトル！
-      </div>
-      <OptionList />
-    </div>
-  );
-};
+import { MyPokemon } from "./components/MyPokemon/MyPokemon";
 
-const OptionList = () => {
-  const { frontUrl, backUrl, status, moves, pokemonName } = UsePokemonStore();
-  console.log("OptionList", frontUrl);
-  console.log("OptionList", status);
-  console.log("OptionList", backUrl);
-  console.log("OptionList", moves);
+export const Battle = () => {
+  const { frontUrl } = UsePokemonStore();
   return (
-    <div>
-      <ul>
-        {pokemonName === "pikachu" &&
-          moves?.pikachu?.map((move) => (
-            <li key={move.id}>
-              <p>
-                {move.names.find((name) => name.language.name === "ja")?.name}
-              </p>
-              <p>{move.power}</p>
-              <p>{move.pp}</p>
-              <p>{move.accuracy}</p>
-            </li>
-          ))}
-        {pokemonName === "eevee" &&
-          moves?.eevee?.map((move) => (
-            <li key={move.id}>
-              <p>
-                {move.names.find((name) => name.language.name === "ja")?.name}
-              </p>
-              <p>{move.power}</p>
-              <p>{move.pp}</p>
-              <p>{move.accuracy}</p>
-            </li>
-          ))}
-      </ul>
-      {backUrl && <img src={backUrl} alt='相棒' />}
+    <div className='grid grid-cols-2 gap-4 p-12 h-screen max-w-screen-xl mx-auto'>
+      <div />
+      <div className='flex flex-col justify-center items-center w-full '>
+        {frontUrl && <img className='w-48' src={frontUrl} alt='相棒' />}
+      </div>
+      <MyPokemon />
+      <div />
     </div>
   );
 };

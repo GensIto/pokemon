@@ -1,8 +1,8 @@
 import React from "react";
 
 import { PokemonNames } from "../../../../store/UsePokemonStore";
+import { Table } from "../../../../Table";
 import { Move } from "../../../../types";
-import { Table } from "../../../components/Table";
 import { MoveCell } from "../MoveCell";
 import { MoveCheckboxCell } from "../MoveCheckboxCell";
 

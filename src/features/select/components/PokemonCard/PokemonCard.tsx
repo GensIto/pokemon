@@ -1,34 +1,17 @@
-import { memo, useEffect, useState } from "react";
-import useSWR from "swr";
+import { memo } from "react";
 
-import { fetcher } from "../../../../functions";
 import { CheckboxCounterProvider } from "../../../../store/UseCheckboxCounterStore";
 import { PokemonNames } from "../../../../store/UsePokemonStore";
-import { Move, Pokemon } from "../../../../types";
+import { usePokemonDatas } from "../../hooks/usePokemonDatas";
 import { JapaneseName } from "../JapaneseName/JapaneseName";
-import { MoveTable } from "../MoveTable";
+import { MoveSection } from "../MoveSection";
 import { PokemonImage } from "../PokemonImage";
 import { getImageURL } from "../PokemonImage/functions";
 import { SubmitButton } from "../SubmitButton";
+import { TypeList } from "../TypeList";
 
 export const PokemonCard: React.FC<{ apiURL: string }> = memo(({ apiURL }) => {
-  const { data: pokemonData, error } = useSWR<Pokemon>(apiURL, fetcher);
-  const [moveList, setMoveList] = useState<Move[]>([]);
-
-  useEffect(() => {
-    const fetchMoves = async () => {
-      if (pokemonData?.moves) {
-        const moves = await Promise.all(
-          pokemonData.moves.map(({ move }) =>
-            fetch(move.url).then((res) => res.json())
-          )
-        );
-        setMoveList(moves);
-      }
-    };
-
-    fetchMoves();
-  }, [pokemonData]);
+  const { pokemonData, moveList, error } = usePokemonDatas(apiURL);
 
   if (error) return <div>Failed to load</div>;
   if (!pokemonData) return <div>Loading...</div>;
@@ -42,30 +25,9 @@ export const PokemonCard: React.FC<{ apiURL: string }> = memo(({ apiURL }) => {
           <h2 className='card-title'>
             <JapaneseName url={pokemonData.species.url} />
           </h2>
-          <figure>
-            <PokemonImage
-              frontUrl={frontUrl}
-              backUrl={backUrl}
-              alt={pokemonData.name}
-            />
-          </figure>
-          <div className='flex gap-2'>
-            <h2>タイプ</h2>
-            <ul>
-              {pokemonData.types.map(({ type }, index) => (
-                <li key={index}>
-                  <JapaneseName url={type.url} />
-                </li>
-              ))}
-            </ul>
-          </div>
-          <h2>わざ</h2>
-          <div className='overflow-y-auto h-48'>
-            <MoveTable
-              pokemonName={pokemonData?.name as PokemonNames}
-              data={moveList}
-            />
-          </div>
+          <PokemonImage frontUrl={frontUrl} alt={pokemonData.name} />
+          <TypeList pokemonData={pokemonData} />
+          <MoveSection pokemonData={pokemonData} moveList={moveList} />
           <SubmitButton
             pokemonName={pokemonData?.name as PokemonNames}
             data={pokemonData}
